@@ -209,7 +209,8 @@ class TrailPainter extends CustomPainter {
     path.moveTo(trail[0].dx, trail[0].dy);
 
     for (int i = 1; i < trail.length; i++) {
-      path.lineTo(trail[i].dx, trail[i].dy);
+      path.conicTo(
+          trail[i].dx, trail[i].dx, trail[i + 1].dx, trail[i + 2].dx, 1);
       paint.strokeWidth = 0.4 * (trail.length - i);
       canvas.drawPath(path, paint);
     }
