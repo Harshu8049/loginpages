@@ -124,7 +124,9 @@ class _DragCircleState extends State<DragCircle>
               child: dragStart || dragStartpointer
                   ? Container()
                   : Stack(children: [
-                      Container(
+                      AnimatedContainer(
+                        curve: Curves.fastEaseInToSlowEaseOut,
+                        duration: const Duration(seconds: 5),
                         padding: const EdgeInsets.all(1),
                         height: 150,
                         width: 150,
@@ -147,7 +149,9 @@ class _DragCircleState extends State<DragCircle>
                           left: 22,
                           bottom: 22,
                           right: 22,
-                          child: Container(
+                          child: AnimatedContainer(
+                            curve: Curves.bounceOut,
+                            duration: const Duration(seconds: 5),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -158,7 +162,9 @@ class _DragCircleState extends State<DragCircle>
                           left: 45,
                           bottom: 45,
                           right: 45,
-                          child: Container(
+                          child: AnimatedContainer(
+                            curve: Curves.bounceOut,
+                            duration: const Duration(seconds: 5),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
