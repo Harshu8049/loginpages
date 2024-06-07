@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:loginpages/register_page.dart';
+import 'package:loginpages/hover_cursore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,6 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(home: RegisterScreen());
+    return const GetMaterialApp(home: DragCircle());
   }
 }

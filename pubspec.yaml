@@ -45,6 +45,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   flip_card: ^0.7.0
   confetti: ^0.6.0
+  speech_to_text: ^6.6.1
 
 
 dev_dependencies:

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +35,7 @@ class _DragCircleState extends State<DragCircle>
     _controller.repeat();
   }
 
-  static const int maxTrailLength = 15;
+  static const int maxTrailLength = 1;
   void _updateTrail() {
     if (_trailBlack.length >= maxTrailLength) {
       _trailBlack.removeAt(0);
@@ -128,47 +129,47 @@ class _DragCircleState extends State<DragCircle>
                         curve: Curves.fastEaseInToSlowEaseOut,
                         duration: const Duration(seconds: 5),
                         padding: const EdgeInsets.all(1),
-                        height: 150,
-                        width: 150,
+                        height: 80,
+                        width: 80,
                       ),
                       Positioned(
-                          top: 1,
-                          left: 1,
-                          bottom: 1,
-                          right: 1,
+                          top: 20,
+                          left: 20,
+                          bottom: 20,
+                          right: 20,
                           child: Container(
-                            height: 100,
-                            width: 100,
+                            height: 10,
+                            width: 10,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border:
-                                    Border.all(color: Colors.blue, width: 8.0)),
+                                    Border.all(color: Colors.blue, width: 1.0)),
                           )),
                       Positioned(
-                          top: 22,
-                          left: 22,
-                          bottom: 22,
-                          right: 22,
+                          top: 24,
+                          left: 24,
+                          bottom: 24,
+                          right: 24,
                           child: AnimatedContainer(
                             curve: Curves.bounceOut,
                             duration: const Duration(seconds: 5),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                    color: Colors.green, width: 8.0)),
+                                    color: Colors.green, width: 1.0)),
                           )),
                       Positioned(
-                          top: 45,
-                          left: 45,
-                          bottom: 45,
-                          right: 45,
+                          top: 28,
+                          left: 28,
+                          bottom: 28,
+                          right: 28,
                           child: AnimatedContainer(
                             curve: Curves.bounceOut,
-                            duration: const Duration(seconds: 5),
+                            duration: Duration(seconds: 5),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                    color: Colors.yellow, width: 8.0)),
+                                    color: Colors.yellow, width: 1.0)),
                           ))
                     ]),
             ),
@@ -208,12 +209,24 @@ class TrailPainter extends CustomPainter {
     final path = Path();
     path.moveTo(trail[0].dx, trail[0].dy);
 
-    for (int i = 1; i < trail.length; i++) {
-      path.conicTo(
-          trail[i].dx, trail[i].dx, trail[i + 1].dx, trail[i + 2].dx, 1);
+    for (int i = 1; i < trail.length - 1; i++) {
+      Offset currentPoint = trail[i];
+      Offset nextPoint = trail[i + 1];
+      Offset midPoint = Offset(
+        (currentPoint.dx + nextPoint.dx) / 2,
+        (currentPoint.dy + nextPoint.dy) / 2,
+      );
+      path.quadraticBezierTo(
+          currentPoint.dx, currentPoint.dy, midPoint.dx, midPoint.dy);
       paint.strokeWidth = 0.4 * (trail.length - i);
       canvas.drawPath(path, paint);
+      path.moveTo(midPoint.dx, midPoint.dy);
     }
+
+    // Draw the last segment
+    path.lineTo(trail.last.dx, trail.last.dy);
+    paint.strokeWidth = 0.4 * (trail.length);
+    canvas.drawPath(path, paint);
   }
 
   @override
